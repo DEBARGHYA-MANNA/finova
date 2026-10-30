@@ -1,0 +1,363 @@
+@import "tailwindcss";
+
+/* ---------- Base tokens (overridden at runtime by theme engine) ---------- */
+:root {
+  --bg: #0b0f0e;
+  --bg-grad: none;
+  --sidebar: #0d1210;
+  --card: #121715;
+  --card-2: #0f1413;
+  --border: #1f2a26;
+  --text-1: #e8eeec;
+  --text-2: #9db3ab;
+  --text-3: #68807a;
+  --accent: #34d399;
+  --accent-soft: rgba(52, 211, 153, 0.12);
+  --accent-ink: #04150e;
+  --accent-2: #22d3ee;
+  --pos: #34d399;
+  --pos-soft: rgba(52, 211, 153, 0.12);
+  --neg: #fb7185;
+  --neg-soft: rgba(251, 113, 133, 0.12);
+  --warn: #fbbf24;
+  --warn-soft: rgba(251, 191, 36, 0.12);
+  --chart-1: #34d399;
+  --chart-2: #22d3ee;
+  --chart-3: #a78bfa;
+  --chart-4: #fbbf24;
+  --chart-5: #fb7185;
+  --chart-6: #94a3b8;
+  --tooltip: #0f1512;
+  --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  --grid-line: rgba(128, 148, 142, 0.1);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  font-feature-settings: "tnum" 1, "cv05" 1;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-mono2 {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ---------- Semantic utility classes ---------- */
+.surface {
+  background: var(--bg);
+  color: var(--text-1);
+}
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.panel-flat {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.panel-inset {
+  background: var(--card-2);
+  border: 1px solid var(--border);
+}
+.t2 {
+  color: var(--text-2);
+}
+.t3 {
+  color: var(--text-3);
+}
+.bc {
+  border-color: var(--border);
+}
+.acc {
+  color: var(--accent);
+}
+.pos {
+  color: var(--pos);
+}
+.neg {
+  color: var(--neg);
+}
+
+/* ---------- Components ---------- */
+.input {
+  width: 100%;
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  color: var(--text-1);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  color-scheme: dark;
+}
+[data-scheme="light"] .input {
+  color-scheme: light;
+}
+.input::placeholder {
+  color: var(--text-3);
+}
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+select.input {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-2) 50%),
+    linear-gradient(135deg, var(--text-2) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 36px;
+}
+.input option {
+  background: var(--card);
+  color: var(--text-1);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 16px;
+  min-height: 40px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+  touch-action: manipulation;
+  user-select: none;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 6px 20px -8px var(--accent);
+}
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+.btn-ghost {
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--text-1);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+
+/* segmented control */
+.seg {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.seg button {
+  padding: 6px 12px;
+  min-height: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-3);
+  border-radius: 9px;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.seg button:hover {
+  color: var(--text-2);
+}
+.seg button.on {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 8px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3);
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text-1);
+}
+
+/* ---------- Recharts overrides ---------- */
+.recharts-wrapper,
+.recharts-surface,
+.recharts-sector,
+.recharts-tooltip-cursor {
+  outline: none !important;
+}
+.recharts-cartesian-axis-tick text {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  fill: var(--text-3);
+}
+.recharts-cartesian-grid line {
+  stroke: var(--grid-line);
+}
+.recharts-default-legend {
+  display: none !important;
+}
+
+/* ---------- Page background art ---------- */
+.bg-art {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--bg-grad);
+  transition: opacity 0.4s;
+}
+.bg-noise {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* ---------- Lock screen: must always fit the viewport, never scroll ---------- */
+/* the scroll container is <html>, so both must be pinned while locked */
+html.lock-open,
+html.lock-open body {
+  overflow: hidden !important;
+  height: 100%;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+.lock-shell {
+  position: fixed;
+  inset: 0;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(10px, 2vh, 24px) 16px;
+  gap: clamp(6px, 1.4vh, 16px);
+}
+.lock-card {
+  width: 100%;
+  max-width: 360px;
+  padding: clamp(14px, 2.5vh, 28px);
+}
+.lock-clock {
+  font-size: clamp(26px, 5.4vh, 44px);
+  line-height: 1.05;
+}
+.lock-avatar {
+  width: clamp(40px, 7vh, 54px);
+  height: clamp(40px, 7vh, 54px);
+  font-size: clamp(14px, 2.4vh, 18px);
+}
+.lock-grid {
+  gap: clamp(5px, 1.05vh, 12px);
+}
+.lock-key {
+  width: clamp(44px, 9vh, 66px);
+  height: clamp(44px, 9vh, 66px);
+}
+.lock-key-num {
+  font-size: clamp(15px, 2.5vh, 20px);
+}
+.lock-dots {
+  margin: clamp(10px, 2.1vh, 22px) 0;
+}
+
+/* progressively drop chrome on short viewports so the keypad always fits */
+@media (max-height: 760px) {
+  .lock-hide-sm {
+    display: none !important;
+  }
+}
+@media (max-height: 650px) {
+  .lock-hide-xs {
+    display: none !important;
+  }
+}
+/* landscape phones: drop the avatar/name block so the keypad keeps 44px targets */
+@media (max-height: 460px) {
+  .lock-identity {
+    display: none !important;
+  }
+  .lock-card {
+    padding: 12px 14px;
+  }
+  .lock-dots {
+    margin: 8px 0;
+  }
+}
+
+/* themed row divider */
+.divide-y-custom > * + * {
+  border-top: 1px solid var(--border);
+}
+
+/* dotted texture for hero-ish cards */
+.dot-grid {
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+@media (max-width: 1023px) {
+  body {
+    --shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
